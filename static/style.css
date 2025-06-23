@@ -1,0 +1,303 @@
+/* static/style.css */
+
+/* --- Basic Reset & Defaults --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- CSS Variables (Theme) --- */
+:root {
+  --yoda-green: #86a86a; /* Muted green */
+  --dagobah-brown: #8d6e63; /* Earthy brown */
+  --light-bg: #f4f4f4;
+  --dark-text: #333333;
+  --light-text: #ffffff;
+  --card-bg: #ffffff;
+  --border-color: #dddddd;
+  --error-color: #d9534f;
+  --win-color: #5cb85c;
+  --loss-color: var(--error-color);
+  --tie-color: #777777;
+  /* Define --yoda-text-bg if used, e.g.: */
+  --yoda-text-bg: #e8f5e9; /* Light green background for Yoda messages */
+
+
+  --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                      Helvetica, Arial, sans-serif, "Apple Color Emoji",
+                      "Segoe UI Emoji", "Segoe UI Symbol";
+  --base-font-size: 16px;
+  --spacing-unit: 1rem; /* approx 16px */
+}
+
+/* --- Base Styles --- */
+html {
+  font-size: var(--base-font-size);
+}
+
+body {
+  font-family: var(--font-family-sans);
+  line-height: 1.6;
+  background-color: var(--light-bg);
+  color: var(--dark-text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main { /* The <main> tag itself */
+  flex-grow: 1;
+  padding: var(--spacing-unit);
+  max-width: 1100px; /* Max width for content area */
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Style the grid container we added in index.html */
+.main-grid-container {
+    display: block; /* Mobile First: Default is stacking */
+}
+
+h1, h2, h3 {
+  margin-bottom: calc(var(--spacing-unit) * 0.75);
+  color: var(--dagobah-brown);
+  line-height: 1.3;
+}
+
+h1 { font-size: 1.8rem; text-align: center; }
+h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: calc(var(--spacing-unit) * 0.25);}
+h3 { font-size: 1.2rem; }
+
+p {
+  margin-bottom: var(--spacing-unit);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: #e0e0e0;
+  transition: background-color 0.2s ease;
+}
+
+button:hover, button:focus {
+  background-color: #cccccc;
+}
+
+/* --- Utility Classes --- */
+.loading-indicator, .error-indicator {
+    margin-top: var(--spacing-unit);
+    padding: calc(var(--spacing-unit) * 0.5);
+    border-radius: 4px;
+    text-align: center;
+    font-style: italic;
+}
+.loading-indicator { color: var(--yoda-green); background-color: #e8f5e9; }
+.error-indicator { color: var(--light-text); background-color: var(--error-color); }
+.card {
+    background-color: var(--card-bg);
+    padding: var(--spacing-unit);
+    margin-bottom: var(--spacing-unit); /* Provides spacing in mobile view */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.sr-only { /* Screen-reader only text */
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+}
+
+/* --- Header & Footer --- */
+.main-header, .main-footer {
+  background-color: var(--dagobah-brown);
+  color: var(--light-text);
+  padding: calc(var(--spacing-unit) * 0.75) var(--spacing-unit);
+  text-align: center;
+}
+.main-header h1 { color: var(--light-text); margin-bottom: 0; border: none;}
+.main-footer p { margin-bottom: 0; font-size: 0.9rem;}
+
+/* --- Scoreboard --- */
+.scoreboard-section .score-display {
+  display: flex; justify-content: space-around; flex-wrap: wrap;
+  gap: var(--spacing-unit); font-size: 1.1rem;
+}
+.scoreboard-section span { white-space: nowrap; }
+.scoreboard-section strong { color: var(--yoda-green); }
+
+/* --- Game Controls Area --- */
+#game-controls-area h2 { margin-bottom: var(--spacing-unit); }
+.game-controls {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: var(--spacing-unit);
+}
+.move-button {
+  border: 2px solid transparent; padding: 5px; background-color: var(--card-bg);
+  border-radius: 8px; width: 80px; height: 80px; display: flex;
+  justify-content: center; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.1s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.move-button:hover, .move-button:focus { border-color: var(--yoda-green); background-color: #f0f0f0; }
+.move-button:active { transform: scale(0.95); }
+/* Style for the image INSIDE the button */
+.move-button img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Scale image down to fit button */
+}
+
+/* --- Results Area --- */
+#results-area { min-height: 200px; }
+.results-display { margin-top: 0; text-align: center; }
+.results-title { margin-bottom: calc(var(--spacing-unit) * 0.5); font-size: 1rem; color: var(--dagobah-brown); text-transform: uppercase; letter-spacing: 1px; }
+.choices-display { display: flex; justify-content: space-around; align-items: center; margin-bottom: var(--spacing-unit); min-height: 60px; }
+.choice { display: flex; flex-direction: column; align-items: center; font-weight: bold; }
+.choice span { font-size: 0.9rem; margin-bottom: 5px; }
+/* Style for the result choice images */
+.choice-img {
+  width: 50px;  /* Explicit size */
+  height: 50px; /* Explicit size */
+  object-fit: contain; /* Scale image down to fit box */
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: #fff;
+}
+.result-text { font-weight: bold; font-size: 1.2rem; margin-bottom: calc(var(--spacing-unit) * 0.5); min-height: 1.4em; }
+.commentary-text { font-style: italic; color: var(--yoda-green); background-color: #e8f5e9; padding: calc(var(--spacing-unit) * 0.5); border-radius: 4px; min-height: 2em; margin-top: calc(var(--spacing-unit) * 0.5); }
+.status-win { color: var(--win-color); }
+.status-loss { color: var(--loss-color); }
+.status-tie { color: var(--tie-color); }
+
+/* --- Chat Section --- */
+.chat-section h2 { margin-bottom: calc(var(--spacing-unit) * 0.5); }
+.chat-history {
+  height: 250px; /* Fixed height */
+  overflow-y: auto; /* <<<--- ADDED THIS LINE */
+  border: 1px solid var(--border-color);
+  padding: calc(var(--spacing-unit) * 0.5);
+  margin-bottom: var(--spacing-unit);
+  background-color: var(--light-bg);
+  display: flex;
+  flex-direction: column;
+}
+.chat-message { margin-bottom: calc(var(--spacing-unit) * 0.5); padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit); border-radius: 15px; max-width: 80%; word-wrap: break-word; }
+.user-message { background-color: #e1f5fe; align-self: flex-end; border-bottom-right-radius: 5px; text-align: right; }
+.yoda-message { background-color: var(--yoda-text-bg); align-self: flex-start; border-bottom-left-radius: 5px; text-align: left; font-style: italic; }
+.chat-input-area form { display: flex; gap: calc(var(--spacing-unit) * 0.5); }
+#chat-input { flex-grow: 1; padding: calc(var(--spacing-unit) * 0.5); border: 1px solid var(--border-color); border-radius: 4px; font-size: 1rem; }
+#chat-send-button { background-color: var(--yoda-green); color: var(--light-text); border-color: var(--yoda-green); }
+#chat-send-button:hover, #chat-send-button:focus { background-color: #6a8a53; border-color: #6a8a53; }
+
+/* --- Rules Section --- */
+/* Style for the button that toggles the rules */
+.rules-toggle {
+    display: block;
+    margin: 0 auto var(--spacing-unit) auto;
+    background-color: var(--dagobah-brown);
+    color: var(--light-text);
+    border: none;
+}
+.rules-toggle:hover, .rules-toggle:focus {
+    background-color: #6f5a51;
+}
+
+/* Style for the container of the rules content */
+.rules-content {
+    border: 1px solid var(--border-color);
+    margin-top: calc(var(--spacing-unit) * 0.5);
+    padding: var(--spacing-unit); /* Add some padding */
+    background-color: var(--card-bg); /* Match card background */
+    border-radius: 4px; /* Optional rounded corners */
+    /* Make it hidden by default */
+    display: none; /* <<<--- HIDE BY DEFAULT */
+}
+
+/* Add this new rule to show when .is-visible class is present */
+.rules-content.is-visible {
+    display: block; /* <<<--- SHOW WHEN CLASS IS ADDED */
+}
+
+/* Styles for the content inside the rules box */
+.rules-content ul {
+    list-style-position: inside;
+    margin-bottom: var(--spacing-unit);
+    padding-left: var(--spacing-unit);
+}
+.rules-diagram {
+    max-width: 300px;
+    margin: var(--spacing-unit) auto;
+    display: block;
+}
+.rules-close { /* Assuming you might add a close button inside */
+    display: block;
+    margin: var(--spacing-unit) auto 0 auto;
+}
+
+
+/* --- Responsive Adjustments --- */
+
+/* Mobile First: Base styles above apply */
+
+/* --- Grid layout for Desktop --- */
+@media (min-width: 1024px) {
+    .main-grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto auto; /* Define rows */
+        gap: calc(var(--spacing-unit) * 1.5);
+        align-items: start;
+    }
+
+    /* Remove bottom margin from cards when in grid, rely on gap */
+    .main-grid-container > .card,
+    .main-grid-container > #rules-section { /* Also target rules section container */
+        margin-bottom: 0;
+    }
+
+    #scoreboard { grid-column: 1 / -1; grid-row: 1 / 2; }
+    #game-controls-area { grid-column: 1 / 2; grid-row: 2 / 3; }
+    #chat {
+        grid-column: 2 / 3; grid-row: 2 / 3;
+        display: flex; flex-direction: column;
+        min-height: 400px; /* Give chat area height */
+    }
+    #chat .chat-history {
+        flex-grow: 1; height: auto; min-height: 250px;
+        /* Adjust height for desktop if needed */
+        height: 300px; /* Example: Set specific desktop height */
+    }
+    #results-area { grid-column: 1 / -1; grid-row: 3 / 4; }
+    #rules-section { grid-column: 1 / -1; grid-row: 4 / 5; }
+
+    /* --- Optional Font/Size Adjustments for Desktop --- */
+    html { font-size: 17px; }
+    h1 { font-size: 2.4rem; }
+    h2 { font-size: 1.9rem; }
+    h3 { font-size: 1.5rem; }
+    /* Increase button/image sizes */
+    .move-button { width: 110px; height: 110px; }
+    .choice-img { width: 70px; height: 70px; }
+}
+
+/* --- Adjustments for smaller tablets (optional intermediate step) --- */
+@media (min-width: 768px) and (max-width: 1023px) {
+     html { font-size: 16.5px; }
+     /* Keep single column, but maybe increase sizes */
+     .move-button { width: 95px; height: 95px; }
+     .choice-img { width: 60px; height: 60px; }
+     .chat-history {
+         height: 280px; /* Slightly taller chat history */
+         overflow-y: auto; /* Ensure scroll is still enabled */
+    }
+}

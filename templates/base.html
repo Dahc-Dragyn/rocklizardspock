@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}AIYoda.app RPSLS & Chat{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', path='/favicon.png') }}">
+    
+
+    {% block head_extra %}{% endblock %}
+
+</head>
+<body>
+
+    <header class="main-header">
+        <h1>AIYoda.app Rock Paper Scissors Lizard Spock & Chat</h1>
+    </header>
+
+    <main class="main-content">
+        {% block content %}
+        <p>Loading content...</p>
+        {% endblock %}
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; <span id="current-year">2025</span> AIYoda Project</p>
+    </footer>
+
+    <script src="{{ url_for('static', path='/script.js') }}" defer></script>
+
+    {% block scripts_extra %}{% endblock %}
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>

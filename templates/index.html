@@ -1,0 +1,94 @@
+{# templates/index.html #}
+
+{% extends "base.html" %}
+
+{# Override the default title from base.html #}
+{% block title %}RPSLS & Chat with AIYoda.app{% endblock %}
+
+{# Define the main content block #}
+{% block content %}
+
+    <div class="main-grid-container">
+
+        <section id="scoreboard" class="scoreboard-section card">
+            <h2>Score</h2>
+            <div class="score-display">
+                <span>Wins: <strong id="score-wins">0</strong></span>
+                <span>Losses: <strong id="score-losses">0</strong></span>
+                <span>Ties: <strong id="score-ties">0</strong></span>
+            </div>
+        </section>
+
+        <section id="game-controls-area" class="card">
+            <h2>Choose Your Move, You Must</h2>
+            <div id="game-controls" class="game-controls">
+                <button class="move-button" data-move="rock" aria-label="Choose Rock"><img src="/images/Rock.jpg" alt="Rock"></button>
+                <button class="move-button" data-move="paper" aria-label="Choose Paper"><img src="/images/Paper.jpg" alt="Paper"></button>
+                <button class="move-button" data-move="scissors" aria-label="Choose Scissors"><img src="/images/Scissors.jpg" alt="Scissors"></button> {# Ensure this matches your corrected filename #}
+                <button class="move-button" data-move="lizard" aria-label="Choose Lizard"><img src="/images/Lizard.jpg" alt="Lizard"></button>
+                <button class="move-button" data-move="spock" aria-label="Choose Spock"><img src="/images/Spock.jpg" alt="Spock"></button>
+            </div>
+        </section>
+
+        <section id="chat" class="chat-section card">
+            <h2>Joke with Yoda, Ask You Can</h2>
+            <div id="chat-history" class="chat-history" aria-live="polite">
+                <div class="yoda-message">Welcome, young Padawan. Speak, you may.</div>
+            </div>
+            <div id="chat-input-area" class="chat-input-area">
+                 <form id="chat-form">
+                     <label for="chat-input" class="sr-only">Your message to Yoda</label>
+                     <input type="text" id="chat-input" placeholder="Your message..." required maxlength="500">
+                     <button type="submit" id="chat-send-button">Send</button>
+                 </form>
+                <div id="chat-loading" class="loading-indicator" style="display: none;">Hmm, reflecting, Yoda is...</div>
+                 <div id="chat-error" class="error-indicator" style="display: none;"></div>
+            </div>
+        </section>
+
+        <section id="results-area" class="card">
+             <div id="results-display" class="results-display">
+                <h3 class="results-title">Round Result</h3>
+                <div id="choices-display" class="choices-display">
+                     <div class="choice player-choice">
+                         <span>You:</span>
+                         <img id="player-choice-img" class="choice-img" src="" alt="Your choice" style="display: none;">
+                     </div>
+                     <div class="choice computer-choice">
+                         <span>Yoda:</span>
+                         <img id="computer-choice-img" class="choice-img" src="" alt="Yoda's choice" style="display: none;">
+                     </div>
+                </div>
+                <p id="result-text" class="result-text status-text"></p> <p id="commentary-text" class="commentary-text yoda-text"></p> <div id="game-loading" class="loading-indicator" style="display: none;">
+                    Patience, you must have... Consulting the Force, Yoda is...
+                </div>
+                 <div id="game-error" class="error-indicator" style="display: none;"></div>
+            </div>
+        </section>
+
+        <section id="rules-section" class="rules-section">
+            <button id="rules-toggle-button" class="rules-toggle" aria-expanded="false" aria-controls="rules-content">
+                Show Rules
+            </button>
+            <div id="rules-content" class="rules-content card hidden" hidden> {# Added hidden class, removed inline style #}
+                <h3>How to Play RPSLS</h3>
+                <p>The ways of the Force, they follow:</p>
+                <ul>
+                    <li>Scissors cuts Paper</li>
+                    <li>Paper covers Rock</li>
+                    <li>Rock crushes Lizard</li>
+                    <li>Lizard poisons Spock</li>
+                    <li>Spock smashes Scissors</li>
+                    <li>Scissors decapitates Lizard</li>
+                    <li>Lizard eats Paper</li>
+                    <li>Paper disproves Spock</li>
+                    <li>Spock vaporizes Rock</li>
+                    <li>Rock crushes Scissors</li>
+                </ul>
+                <p><em>Visual guide, helpful it is not:</em></p>
+                <img src="/images/RPSLS_Rules_Diagram.png" alt="Diagram showing Rock Paper Scissors Lizard Spock rules visually" class="rules-diagram">
+                <button id="rules-close-button" class="rules-close" aria-label="Close Rules">Close</button>
+            </div>
+        </section>
+
+    </div> {% endblock %}
